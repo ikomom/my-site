@@ -4,8 +4,8 @@ import {bindActionCreators} from "redux";
 import {
   actions as authActions
 } from "../../redux/modules/auth";
-import {Button, Form} from "antd";
-import {Link, withRouter} from "react-router-dom";
+import {Form} from "antd";
+import {withRouter} from "react-router-dom";
 import './style.css'
 // import {actions as chatActions, getNumber} from "../../redux/modules/chat";
 import {options as loginOptions, signUpOptions} from './loginModel'

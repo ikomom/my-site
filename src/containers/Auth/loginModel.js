@@ -41,7 +41,7 @@ export const options = {
 
 };
 
-const emailReg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 export const signUpOptions = {
   username: {
     options: {
@@ -61,13 +61,10 @@ export const signUpOptions = {
     },
     render: <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} type="password"
                    placeholder="Password"/>,
-  },
-  link: {
-    options: {},
-    render:
+    afterRender:
       <Button type="primary" htmlType="submit" className="login-form-button">
-      Sign Up
-    </Button>,
+        Sign Up
+      </Button>,
   }
 
 };

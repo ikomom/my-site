@@ -1,10 +1,10 @@
 'use strict';
 
-const serivce = require('../service/UserService');
+const userSerivce = require('../service/User');
 
 class UserController {
   static async getUserInfo(ctx) {
-    const user = await serivce.getUserByName('ikonon');
+    const user = await userSerivce.getUserByName('ikonon');
     ctx.body = user;
   }
 }

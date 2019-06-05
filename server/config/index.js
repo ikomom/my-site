@@ -1,8 +1,6 @@
 /**
  * Created by ikonon on 2019/6/3
  */
-function configInit() {
+module.exports = (app) => {
   require('./db');
-}
-
-module.exports = configInit;
+};

@@ -1,5 +1,6 @@
 import Immutable from "immutable";
 import axios from 'axios';
+import {POST} from 'web-url/'
 
 const initialState = Immutable.fromJS({
   isAuthenticated: false,// 是否登陆
@@ -15,23 +16,14 @@ export const types = {
 export const actions = {
   signIn: (values = {}) => {
     return async dispatch => {
-      let response = await axios.post('http://localhost:7000/signin', values);
-      if (response.status === 200) {
-        dispatch({type: types.SIGN_IN, response: response.data})
-      }else {
-        dispatch({type: types.SIGN_IN, response: null})
-      }
-
+      let response = await axios.post(POST.signIn, values);
+      dispatch({type: types.SIGN_IN, response: response});
     }
   },
   signUp: (values = {}) => {
     return async dispatch => {
-      let response = await axios.post('http://localhost:7000/signup', values);
-      if (response.status === 200) {
-        dispatch({type: types.SIGN_UP, response: response.data})
-      }else {
-        dispatch({type: types.SIGN_UP, response: null})
-      }
+      let response = await axios.post(POST.signUp, values);
+      dispatch({type: types.SIGN_UP, response: response})
     }
   },
   signOut: () => ({

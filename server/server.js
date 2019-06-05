@@ -9,7 +9,8 @@ const Router = require('koa-router');
 const router = new Router();
 // application 全局只用一个
 const app = new Koa();
-require('./config')(app);// 加载初始化设置
+// 加载初始化设置
+require('./config')(app);
 
 //中间件-第三方
 app.keys = ['some secret hurr'];
@@ -27,19 +28,13 @@ app.use(bodyParser());
 app.use(logger());
 //中间件-自定义
 app.use(async (ctx, next) => {
-  try {
-    await next();
-  }catch (e) {
-    console.log(e)
-  }
-});
-app.use(async (ctx, next) => {
   if (ctx.path === '/favicon.ico') return;
   ctx.set("Access-Control-Allow-Origin", "*");// http://localhost:3000
   ctx.set("Access-Control-Allow-Headers", "X-Requested-With,Origin,Content-Type,Accept");
   ctx.set("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   await next()
 });
+require('./middlewares')(app);
 // 加载路由
 require('./router/web')(app, router);
 // 启动路由

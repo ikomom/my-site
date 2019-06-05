@@ -1,5 +1,3 @@
-@import '~antd/dist/antd.css';
-
 .auth-content {
     background: white url("../../../public/img/background.jpg") no-repeat fixed center 0;
     background-size: cover;
@@ -20,5 +18,6 @@
 }
 
 .login-form-button {
+    margin-top: 10px;
     width: 100%;
 }

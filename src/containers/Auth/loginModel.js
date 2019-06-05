@@ -42,16 +42,20 @@ export const options = {
 };
 
 const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+const usernameReg = /^[a-zA-Z0-9\-_]+$/i;
 export const signUpOptions = {
   username: {
     options: {
-      rules: [{required: true, min: 3, max: 10, whitespace: true}]
+      rules: [
+        {required: true, min: 3, max: 10, whitespace: true},
+        {pattern: usernameReg, message: '用户名不合法'},
+      ]
     },
     render: <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Username"/>,
   },
   email: {
     options: {
-      rules: [{required: true, whitespace: true,}, {pattern: emailReg, message: '邮箱不正确'}]
+      rules: [{required: true, whitespace: true,}, {pattern: emailReg, message: '邮箱不合法'}]
     },
     render: <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Email"/>,
   },

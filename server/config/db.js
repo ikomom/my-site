@@ -1,4 +1,4 @@
-function mongondb(app) {
+module.exports = (app) => {
   const mongoose = require('mongoose');
   //连接数据库
   const db = mongoose.connection;
@@ -28,6 +28,4 @@ function mongondb(app) {
   db.on('disconnected', function () {
     console.log(new Date() + 'Mongoose connection disconnected');
   });
-}
-
-module.exports = mongondb();
+};

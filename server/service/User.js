@@ -8,7 +8,7 @@ const userModel = require('../model/User')();
 
 class UserService {
   static async getUserByName(name) {
-    const query = { name: new RegExp('^' + name + '$', 'i') };// 精确查询
+    const query = {name: new RegExp(`^${name}$`, 'i')};// 精确查询
     return userModel.findOne(query).exec();
   }
 
@@ -18,7 +18,7 @@ class UserService {
    * @return {Promise[user]} 承载用户的 Promise 对象
    */
   static async getUserByGithubId(githubId) {
-    const query = { githubId };
+    const query = {githubId};
     return userModel.findOne(query).exec();
   }
 

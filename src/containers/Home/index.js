@@ -19,6 +19,7 @@ class Home extends React.Component{
       <div className="App">
         <Link to={'/auth'}>登陆</Link><br/>
         <Link to={'/chat'}>聊天</Link><br/>
+        <Link to={'/barrage'}>弹幕</Link><br/>
         <Col span={left_span} className={"App-left"}>
           <Row className={"App-left"} span={left_span}>
             1

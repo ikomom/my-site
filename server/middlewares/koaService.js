@@ -39,7 +39,7 @@ function files2dirMap(opt, files) {
  * 把serivce挂载到this下的中间件
  * @param {*} options
  */
-function genService(options) {// todo 重新封装，把config和contoller想个方法集成
+module.exports = (options) => {// todo 重新封装，把config和contoller想个方法集成
   options = options || {};
   options = Object.assign({}, defaultOptions, options);
   const files = glob.sync('**/*.js', {nodir: true, cwd: options.serviceRoot});
@@ -82,9 +82,6 @@ function genService(options) {// todo 重新封装，把config和contoller想个
         return service
       }
     });
-    console.log('handle=============', ctx.service.User.getUserByName)
     await next()
   }
-}
-
-module.exports = genService
+};

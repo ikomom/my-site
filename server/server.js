@@ -3,6 +3,8 @@
  */
 const Koa = require('koa');
 const session = require('koa-session');
+const KoaRedis = require('koa-redis');
+const passport = require('./common/passport-local');
 const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const Router = require('koa-router');
@@ -10,26 +12,30 @@ const router = new Router();
 // application 全局只用一个
 const app = new Koa();
 // 加载初始化设置
-require('./config')(app);
+const config = require('./config')();
 
+const store = KoaRedis(config.redis);
+store.client.on('connect', () => {
+  console.log('[connect redis success!!!]')
+});
+
+store.client.on('error', (info) => {
+  console.log('[error]:' + info)
+});
 //中间件-第三方
-app.keys = ['some secret hurr'];
-const CONFIG = {
-  key: 'koa:sess',   //cookie key (default is koa:sess)
-  maxAge: 86400000,  // cookie的过期时间 maxAge in ms (default is 1 days)
-  overwrite: true,  //是否可以overwrite    (默认default true)
-  httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
-  signed: true,   //签名默认true
-  rolling: false,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
-  renew: false,  //(boolean) renew session when session is nearly expired,
-};
-app.use(session(CONFIG, app));
+app.keys = config.session.secret_keys;
+const session_config = Object.assign({}, config.session.config, {store: store});
+app.use(session(session_config, app));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser());
 app.use(logger());
+app.passport = passport;// 挂载passport到app
 //中间件-自定义
 app.use(async (ctx, next) => {
   if (ctx.path === '/favicon.ico') return;
-  ctx.set("Access-Control-Allow-Origin", "*");// http://localhost:3000
+  ctx.set("Access-Control-Allow-Origin", "http://localhost:3000");// 本地允许
+  ctx.set("Access-Control-Allow-Credentials", "true");// 本地允许
   ctx.set("Access-Control-Allow-Headers", "X-Requested-With,Origin,Content-Type,Accept");
   ctx.set("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   await next()

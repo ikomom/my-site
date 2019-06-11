@@ -4,11 +4,29 @@ const userSerivce = require('../service/User');
 const validator = require('validator');
 const utility = require('utility');
 const sign = require('../helper/sign');
+const passport = require('../common/passport-local');
+
+function success(data) {
+  return {
+    data,
+    status: 'success'
+  }
+}
 
 class SignController {
   static async signIn(ctx) {
-    const user = await userSerivce.getUserByName('ikonon');
-    ctx.body = user;
+    console.log('signIn')
+    return passport.authenticate('local',
+      function(err, user, info, status) {
+        ctx.body = {
+          data: {err, user, info, status},
+          status: 'success'
+        };
+        if (!ctx.session.user) {
+          ctx.session.user = user;
+        }
+        return ctx.login({id: 1, username: 'admin', password: '123456'})
+      })(ctx)
   }
 
   static async signUp(ctx) {

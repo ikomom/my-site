@@ -2,6 +2,9 @@ import axios from 'axios/index';
 import {message} from 'antd';
 
 axios.defaults.baseURL = 'http://localhost:7000';
+axios.defaults.withCredentials = true; // 请求默认带cookies
+
+
 // 请求
 axios.interceptors.request.use(function (request) {
   message.loading('请求中...', 0);
@@ -11,6 +14,8 @@ axios.interceptors.request.use(function (request) {
 // 响应
 axios.interceptors.response.use(function (response) {
   message.destroy();// 这会摧毁全局提示，可能还需要优化
+  console.log('===============')
+  console.log(response.headers)
   if (response && response.status === 200) {
     message.success('请求成功', 1)
   } else {

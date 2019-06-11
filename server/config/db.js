@@ -1,18 +1,14 @@
-module.exports = (app) => {
+module.exports = (config) => {
   const mongoose = require('mongoose');
   //连接数据库
+  const {mongoose: {url, options}} = config;
   const db = mongoose.connection;
-  const DB_URL = 'mongodb://localhost/learn-mongoose';
-  const options = {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-  };
-  mongoose.connect(DB_URL, options);
+  mongoose.connect(url, options);
   /**
    * 连接成功
    */
   db.on('connected', function () {
-    console.log(new Date() + 'Mongoose connection open ' + DB_URL + '连接成功');
+    console.log(new Date() + 'Mongoose connection open ' + url + '连接成功');
   });
 
   /**
@@ -20,6 +16,7 @@ module.exports = (app) => {
    */
   db.on('error', function (err) {
     console.log(new Date() + 'Mongoose connection error: ' + err);
+    process.exit(1);
   });
 
   /**
@@ -27,5 +24,6 @@ module.exports = (app) => {
    */
   db.on('disconnected', function () {
     console.log(new Date() + 'Mongoose connection disconnected');
+    process.exit(1);
   });
 };

@@ -16,7 +16,6 @@ class DanMuController {
   static async danmu(ctx) {
     const info = await serivce.getDamuInfo();
     const roomInfo = info.data.data.room;
-
     ctx.body = {
       data: roomInfo.map(item => generateDanMu(item)),
       status: 'success'

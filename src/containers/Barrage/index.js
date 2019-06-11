@@ -5,7 +5,6 @@ import React from "react";
 import {Button} from "antd";
 import axios from 'axios';
 import Barrage from 'barrage-ui';
-import example from 'barrage-ui/example.json'; // 组件提供的示例数据
 import './style.css'
 
 // //b 站弹幕列表
@@ -23,13 +22,13 @@ import './style.css'
 //   });
 
 class BarrageUI extends React.Component{
-  constructor(props){
-    super(props);
-  }
   componentDidMount() {
     this.getDanMU();
-    setInterval(this.getDanMU, 10000);
+    this.getDanMuinfo = setInterval(this.getDanMU, 10000);
+  }
 
+  componentWillUnmount() {
+    clearInterval(this.getDanMuinfo)
   }
 
   getDanMU = () => {

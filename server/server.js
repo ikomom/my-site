@@ -43,6 +43,7 @@ app.use(async (ctx, next) => {
 require('./middlewares')(app);
 // 加载路由
 require('./router/web')(app, router);
+require('./router/api')(app, router);
 // 启动路由
 app.use(router.routes())
   .use(router.allowedMethods());

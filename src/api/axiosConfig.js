@@ -14,8 +14,8 @@ axios.interceptors.request.use(function (request) {
 // 响应
 axios.interceptors.response.use(function (response) {
   message.destroy();// 这会摧毁全局提示，可能还需要优化
-  console.log('===============')
-  console.log(response.headers)
+  console.log('response');
+  console.log(response);
   if (response && response.status === 200) {
     message.success('请求成功', 1)
   } else {

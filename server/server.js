@@ -8,6 +8,8 @@ const passport = require('./common/passport-local');
 const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const Router = require('koa-router');
+const common = require('./config/common');
+
 const router = new Router();
 // application 全局只用一个
 const app = new Koa();
@@ -16,11 +18,11 @@ const config = require('./config')();
 
 const store = KoaRedis(config.redis);
 store.client.on('connect', () => {
-  console.log('[connect redis success!!!]')
+  common.log('[connect redis success!!!]')
 });
 
 store.client.on('error', (info) => {
-  console.log('[error]:' + info)
+  common.log('[connect redis error]:' + info, 'error')
 });
 //中间件-第三方
 app.keys = config.session.secret_keys;

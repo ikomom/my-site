@@ -1,5 +1,6 @@
+const mongoose = require('mongoose');
+
 module.exports = (config) => {
-  const mongoose = require('mongoose');
   //连接数据库
   const {mongoose: {url, options}} = config;
   const db = mongoose.connection;
@@ -27,3 +28,18 @@ module.exports = (config) => {
     process.exit(1);
   });
 };
+
+/**
+ * 公共创建model的方法
+ * @param model model名字
+ * @param schema
+ * @return {Model}
+ */
+function model(model, schema) {
+  if (!(schema instanceof mongoose.Schema)) {
+    schema = new mongoose.Schema(schema);
+  }
+  schema.set('autoIndex', false);
+  return mongoose.model(model, schema, model)
+}
+exports.model = model;

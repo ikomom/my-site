@@ -23,6 +23,7 @@ const AsyncHome = connectAsyncComponents(() => import("../Home"));
 const AsyncChat = connectAsyncComponents(() => import("../Chat"));
 const AsyncAuth = connectAsyncComponents(() => import("../Auth"));
 const AsyncBarrage = connectAsyncComponents(() => import("../Barrage"));
+const AsyncTest = connectAsyncComponents(() => import("../Test"));
 const page404 = ({ location }) => (<h1>404 <code>{location.pathname}</code></h1>);
 
 const mapStateToProps = (state, props) => ({
@@ -43,6 +44,7 @@ class App extends React.Component {
             <Route path="/auth" component={AsyncAuth} />
             <Route path="/barrage" component={AsyncBarrage} />
             <Route path="/signup" component={AsyncAuth} />
+            <Route path="/test" component={AsyncTest} />
             <PrivateRoute path="/chat" component={AsyncChat} />
             <Route component={page404} />
           </Switch>

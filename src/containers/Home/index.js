@@ -20,6 +20,7 @@ class Home extends React.Component{
         <Link to={'/auth'}>登陆</Link><br/>
         <Link to={'/chat'}>聊天</Link><br/>
         <Link to={'/barrage'}>弹幕</Link><br/>
+        <Link to={'/test'}>测试</Link><br/>
         <Col span={left_span} className={"App-left"}>
           <Row className={"App-left"} span={left_span}>
             1

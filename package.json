@@ -8,6 +8,7 @@
     "barrage-ui": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "customize-cra": "^0.2.12",
+    "fs-extra": "^8.1.0",
     "immutable": "^4.0.0-rc.12",
     "koa": "^2.7.0",
     "koa-better-http-proxy": "^0.2.4",

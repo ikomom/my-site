@@ -2,6 +2,8 @@
  * 默认配置
  * Created by ikonon on 2019/6/5
  */
+const path = require('path');
+
 let config = {
   // debug 为 true 时，用于本地调试
   debug: true,
@@ -23,6 +25,8 @@ let config = {
       useNewUrlParser: true,
     },
   },
+
+  WEBROOT_LOG: path.resolve(__dirname, '../../logs'),
 
   // redis 配置，默认是本地
   redis: {
